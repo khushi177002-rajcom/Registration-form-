@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Club Registration Portal | Northfield University</title>
+<style>
+:root{
+  --ink:#1b1740; --indigo:#3d33c9; --violet:#6c5ce7; --amber:#ffb627;
+  --bg:#f5f6fb; --card:#fff; --text:#262b3d; --muted:#667085; --line:#e3e6f0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+a{color:inherit}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.25}
+
+/* Header */
+header{position:sticky;top:0;z-index:20;background:rgba(27,23,64,.96);backdrop-filter:blur(8px);color:#fff}
+.bar{max-width:1120px;margin:auto;padding:12px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--amber),#ff8a3d);color:var(--ink);display:grid;place-items:center;font:bold 1.4rem Georgia,serif}
+.brand h1{font-size:1.1rem}
+.brand small{display:block;color:#aeb4e6;font-size:.78rem}
+nav ul{list-style:none;display:flex;gap:4px;flex-wrap:wrap}
+nav a{display:block;padding:8px 16px;border-radius:999px;text-decoration:none;font-weight:500;font-size:.95rem;transition:.2s}
+nav a:hover{background:var(--amber);color:var(--ink)}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;color:#fff;text-align:center;padding:80px 20px 110px;
+  background:radial-gradient(circle at 15% 20%,#5b4be0 0,transparent 40%),radial-gradient(circle at 85% 80%,#e0457b 0,transparent 35%),linear-gradient(135deg,#1b1740,#2f2a8f)}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,.12)}
+.hero::before{width:380px;height:380px;top:-140px;right:-100px}
+.hero::after{width:260px;height:260px;bottom:-120px;left:-60px}
+.badge{display:inline-block;background:rgba(255,182,39,.18);color:var(--amber);border:1px solid rgba(255,182,39,.5);padding:5px 16px;border-radius:999px;font-size:.85rem;font-weight:600;margin-bottom:20px}
+.hero h2{font-size:clamp(2rem,5vw,3.2rem);max-width:18ch;margin:0 auto 16px}
+.hero p{max-width:58ch;margin:0 auto 30px;color:#d6d9f5;font-size:1.05rem}
+.btn{display:inline-block;padding:13px 30px;border-radius:10px;font:600 1rem inherit;font-family:inherit;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:.2s}
+.btn-gold{background:var(--amber);color:var(--ink);box-shadow:0 8px 20px rgba(255,182,39,.35)}
+.btn-gold:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(255,182,39,.45)}
+.btn-ghost{color:#fff;border-color:rgba(255,255,255,.5);margin-left:8px}
+.btn-ghost:hover{background:#fff;color:var(--ink)}
+
+/* Layout */
+main{max-width:1120px;margin:auto;padding:0 20px}
+section{padding:60px 0 0;scroll-margin-top:80px}
+.title{text-align:center;margin-bottom:34px}
+.title h2{font-size:2rem;color:var(--ink)}
+.title p{color:var(--muted);max-width:60ch;margin:8px auto 0}
+.title h2::after{content:"";display:block;width:60px;height:4px;border-radius:4px;margin:12px auto 0;background:linear-gradient(90deg,var(--violet),var(--amber))}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-top:-60px;position:relative;z-index:2}
+.stat{background:var(--card);border-radius:16px;padding:22px;text-align:center;box-shadow:0 12px 30px rgba(27,23,64,.12);transition:.25s}
+.stat:hover{transform:translateY(-5px)}
+.stat strong{display:block;font:bold 2rem Georgia,serif;color:var(--indigo)}
+.stat span{color:var(--muted);font-size:.9rem}
+
+/* Cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 24px;transition:.25s}
+.card:hover{transform:translateY(-6px);box-shadow:0 16px 34px rgba(61,51,201,.15);border-color:var(--violet)}
+.icon{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;font-size:1.6rem;margin-bottom:16px;background:linear-gradient(135deg,#ece9ff,#fff1d1)}
+.card h3{color:var(--ink);font-size:1.15rem;margin-bottom:8px}
+.card p{color:var(--muted);font-size:.95rem}
+
+/* Table */
+.table-wrap{overflow-x:auto;background:var(--card);border-radius:16px;border:1px solid var(--line);box-shadow:0 10px 30px rgba(27,23,64,.07)}
+table{width:100%;border-collapse:collapse;min-width:820px}
+caption{text-align:left;padding:16px 22px;color:var(--muted);font-size:.9rem}
+th,td{padding:16px 22px;text-align:left;vertical-align:top}
+thead th{background:linear-gradient(90deg,var(--ink),#2f2a8f);color:#fff;font-weight:600;font-size:.92rem}
+tbody td{border-top:1px solid var(--line);font-size:.95rem}
+tbody tr{transition:.2s}
+tbody tr:hover{background:#f3f1ff}
+td:first-child{font-weight:700;color:var(--ink);white-space:nowrap}
+.tag{display:inline-block;padding:3px 12px;border-radius:999px;font-size:.8rem;font-weight:600;white-space:nowrap}
+.t-tech{background:#e3e0ff;color:#3d33c9}
+.t-art{background:#ffe0ec;color:#c2185b}
+.t-lit{background:#d9f3ea;color:#0f7a56}
+.t-cre{background:#fff0cc;color:#996a00}
+.t-spo{background:#ffe3d3;color:#c2410c}
+.day{font-weight:600;color:var(--indigo)}
+
+/* Form */
+.form-layout{display:grid;grid-template-columns:300px 1fr;gap:26px;align-items:start}
+.side{background:linear-gradient(160deg,var(--ink),#2f2a8f);color:#fff;border-radius:16px;padding:28px 24px;position:sticky;top:90px}
+.side h3{font-size:1.3rem;margin-bottom:14px}
+.side ul{list-style:none}
+.side li{padding:10px 0 10px 30px;position:relative;color:#d6d9f5;font-size:.95rem;border-top:1px solid rgba(255,255,255,.12)}
+.side li::before{content:"\2713";position:absolute;left:0;top:10px;width:20px;height:20px;border-radius:50%;background:var(--amber);color:var(--ink);font-size:.75rem;font-weight:bold;display:grid;place-items:center}
+form{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px;box-shadow:0 10px 30px rgba(27,23,64,.07)}
+fieldset{border:none;margin-bottom:28px}
+legend{font:bold 1.15rem Georgia,serif;color:var(--ink);margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--line);width:100%}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.field{display:flex;flex-direction:column;gap:6px}
+.full{grid-column:1/-1}
+label,.lbl{font-weight:600;font-size:.9rem;color:var(--ink)}
+input[type=text],input[type=email],input[type=tel],input[type=date],select,textarea{width:100%;padding:12px 14px;border:1.5px solid #cfd4e4;border-radius:10px;font:inherit;background:#fafbff;color:var(--text);transition:.2s}
+input:hover,select:hover,textarea:hover{border-color:var(--violet)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--violet);background:#fff;box-shadow:0 0 0 4px rgba(108,92,231,.18)}
+textarea{min-height:100px;resize:vertical}
+.options{display:flex;flex-wrap:wrap;gap:10px}
+.options label{display:flex;align-items:center;gap:8px;font-weight:500;color:var(--text);padding:9px 16px;border:1.5px solid #cfd4e4;border-radius:10px;cursor:pointer;transition:.2s;background:#fafbff}
+.options label:hover{border-color:var(--violet);background:#f3f1ff}
+input[type=radio],input[type=checkbox]{width:17px;height:17px;accent-color:var(--indigo)}
+.terms{display:flex;gap:10px;align-items:flex-start;background:#fff8e6;border:1px solid #ffe3a3;border-radius:10px;padding:14px 16px;margin-bottom:22px}
+.terms label{font-weight:400;color:var(--text)}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.btn-main{background:linear-gradient(90deg,var(--indigo),var(--violet));color:#fff;box-shadow:0 8px 20px rgba(61,51,201,.3)}
+.btn-main:hover{transform:translateY(-3px)}
+.btn-out{background:#fff;color:var(--indigo);border-color:var(--indigo)}
+.btn-out:hover{background:var(--indigo);color:#fff}
+
+/* Rules */
+.rules{list-style:none;counter-reset:r;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.rules li{counter-increment:r;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 18px 70px;position:relative;transition:.25s}
+.rules li:hover{border-color:var(--amber);box-shadow:0 10px 24px rgba(255,182,39,.2);transform:translateY(-3px)}
+.rules li::before{content:counter(r);position:absolute;left:18px;top:16px;width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--violet),var(--indigo));color:#fff;font:bold 1.1rem Georgia,serif;display:grid;place-items:center}
+
+/* Footer */
+footer{margin-top:80px;background:var(--ink);color:#aeb4e6}
+.foot{max-width:1120px;margin:auto;padding:44px 20px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px}
+footer h3{color:#fff;font-size:1.05rem;margin-bottom:10px}
+footer a{text-decoration:none;color:var(--amber)}
+footer a:hover{text-decoration:underline}
+footer li{list-style:none;margin-bottom:4px}
+.copy{border-top:1px solid rgba(255,255,255,.12);text-align:center;padding:16px;font-size:.88rem}
+
+/* Responsive */
+@media(max-width:860px){.form-layout{grid-template-columns:1fr}.side{position:static}}
+@media(max-width:600px){
+  .bar{justify-content:center;text-align:center}
+  .brand{flex-direction:column;gap:6px}
+  nav ul{justify-content:center}
+  .hero{padding:56px 16px 90px}
+  .btn-ghost{margin:10px 0 0}
+  form{padding:22px 16px}
+  .actions .btn{width:100%;text-align:center}
+  .rules li{padding-left:64px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">N</div>
+      <div><h1>Club Registration Portal</h1><small>Northfield University</small></div>
+    </div>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#clubs">Clubs</a></li>
+        <li><a href="#registration">Registration</a></li>
+        <li><a href="#rules">Rules</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="hero" id="home">
+  <span class="badge">Registrations open for 2026-27</span>
+  <h2>Find your club. Shape your campus life.</h2>
+  <p>Join student communities in technology, arts, literature and sports. Apply online in just a few minutes.</p>
+  <a class="btn btn-gold" href="#registration">Register Now</a>
+  <a class="btn btn-ghost" href="#clubs">Explore Clubs</a>
+</div>
+
+<main>
+
+  <div class="stats">
+    <div class="stat"><strong>20+</strong><span>Active Clubs</span></div>
+    <div class="stat"><strong>1,500+</strong><span>Student Members</span></div>
+    <div class="stat"><strong>60+</strong><span>Events a Year</span></div>
+    <div class="stat"><strong>25</strong><span>Faculty Mentors</span></div>
+  </div>
+
+  <!-- Club Details -->
+  <section id="about">
+    <div class="title">
+      <h2>About Our Clubs</h2>
+      <p>Clubs turn classroom learning into real experience and help you build friendships that last.</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <div class="icon">🎯</div>
+        <h3>Purpose of Clubs</h3>
+        <p>Clubs give students a space to explore interests beyond the syllabus, from coding and robotics to music and sports.</p>
+      </article>
+      <article class="card">
+        <div class="icon">🤝</div>
+        <h3>Student Participation</h3>
+        <p>Every student can join. Members attend meetings, take part in events and help plan activities all year.</p>
+      </article>
+      <article class="card">
+        <div class="icon">🚀</div>
+        <h3>Skills &amp; Growth</h3>
+        <p>Leadership, teamwork and communication skills grow through projects, competitions and workshops.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Clubs Table -->
+  <section id="clubs">
+    <div class="title">
+      <h2>Available Clubs</h2>
+      <p>Check the meeting day to find a club that fits your timetable.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption>Student clubs for the current academic year</caption>
+        <thead>
+          <tr>
+            <th scope="col">Club Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Description</th>
+            <th scope="col">Faculty Coordinator</th>
+            <th scope="col">Meeting Day</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>💻 Coding Club</td>
+            <td><span class="tag t-tech">Technical</span></td>
+            <td>Learn programming, build projects and join hackathons and coding contests.</td>
+            <td>Dr. Anita Sharma</td>
+            <td class="day">Monday</td>
+          </tr>
+          <tr>
+            <td>🤖 Robotics Club</td>
+            <td><span class="tag t-tech">Technical</span></td>
+            <td>Design and build robots, work with sensors and compete in national events.</td>
+            <td>Prof. Rahul Verma</td>
+            <td class="day">Tuesday</td>
+          </tr>
+          <tr>
+            <td>🎭 Cultural Club</td>
+            <td><span class="tag t-art">Arts &amp; Culture</span></td>
+            <td>Organise dance, music and drama shows and run the annual cultural fest.</td>
+            <td>Dr. Meera Iyer</td>
+            <td class="day">Wednesday</td>
+          </tr>
+          <tr>
+            <td>📚 Literary Club</td>
+            <td><span class="tag t-lit">Literature</span></td>
+            <td>Enjoy debates, creative writing, poetry sessions and book discussions.</td>
+            <td>Prof. Sandeep Joshi</td>
+            <td class="day">Thursday</td>
+          </tr>
+          <tr>
+            <td>📷 Photography Club</td>
+            <td><span class="tag t-cre">Creative</span></td>
+            <td>Practise photography and editing through photo walks and campus event coverage.</td>
+            <td>Ms. Kavya Nair</td>
+            <td class="day">Friday</td>
+          </tr>
+          <tr>
+            <td>⚽ Sports Club</td>
+            <td><span class="tag t-spo">Sports</span></td>
+            <td>Train and compete in cricket, football, basketball and athletics.</td>
+            <td>Mr. Arjun Singh</td>
+            <td class="day">Saturday</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Registration -->
+  <section id="registration">
+    <div class="title">
+      <h2>Club Registration Form</h2>
+      <p>Fill in all details carefully. Fields marked with * are required.</p>
+    </div>
+
+    <div class="form-layout">
+      <aside class="side">
+        <h3>Before you apply</h3>
+        <ul>
+          <li>Keep your college ID details ready</li>
+          <li>Use your university email address</li>
+          <li>Choose a club that fits your schedule</li>
+          <li>Approval comes from the Faculty Coordinator</li>
+          <li>You will get a reply within 3 working days</li>
+        </ul>
+      </aside>
+
+      <form action="#" method="post">
+        <fieldset>
+          <legend>Personal Details</legend>
+          <div class="grid">
+            <div class="field">
+              <label for="fullname">Full Name *</label>
+              <input type="text" id="fullname" name="fullname" placeholder="e.g. Priya Sharma" required>
+            </div>
+            <div class="field">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" placeholder="you@university.edu" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone Number *</label>
+              <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
+            </div>
+            <div class="field">
+              <label for="dob">Date of Birth *</label>
+              <input type="date" id="dob" name="dob" required>
+            </div>
+            <div class="field full">
+              <span class="lbl" id="gender-label">Gender *</span>
+              <div class="options" role="radiogroup" aria-labelledby="gender-label">
+                <label for="male"><input type="radio" id="male" name="gender" value="male" required> Male</label>
+                <label for="female"><input type="radio" id="female" name="gender" value="female"> Female</label>
+                <label for="other"><input type="radio" id="other" name="gender" value="other"> Other</label>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Academic Details</legend>
+          <div class="grid">
+            <div class="field">
+              <label for="branch">College / Branch *</label>
+              <input type="text" id="branch" name="branch" placeholder="e.g. School of Engineering, CSE" required>
+            </div>
+            <div class="field">
+              <label for="year">Year / Semester *</label>
+              <select id="year" name="year" required>
+                <option value="">Select year</option>
+                <option>1st Year (Semester 1-2)</option>
+                <option>2nd Year (Semester 3-4)</option>
+                <option>3rd Year (Semester 5-6)</option>
+                <option>4th Year (Semester 7-8)</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Club Preferences</legend>
+          <div class="grid">
+            <div class="field full">
+              <label for="club">Select Club *</label>
+              <select id="club" name="club" required>
+                <option value="">Choose a club</option>
+                <option>Coding Club</option>
+                <option>Robotics Club</option>
+                <option>Cultural Club</option>
+                <option>Literary Club</option>
+                <option>Photography Club</option>
+                <option>Sports Club</option>
+              </select>
+            </div>
+            <div class="field full">
+              <span class="lbl" id="type-label">Preferred Participation Type *</span>
+              <div class="options" role="radiogroup" aria-labelledby="type-label">
+                <label for="active"><input type="radio" id="active" name="participation" value="active" required> Active Member</label>
+                <label for="volunteer"><input type="radio" id="volunteer" name="participation" value="volunteer"> Volunteer</label>
+                <label for="observer"><input type="radio" id="observer" name="participation" value="observer"> Observer</label>
+              </div>
+            </div>
+            <div class="field full">
+              <label for="skills">Skills / Interests</label>
+              <textarea id="skills" name="skills" placeholder="List your skills and interests"></textarea>
+            </div>
+            <div class="field full">
+              <label for="experience">Previous Experience</label>
+              <textarea id="experience" name="experience" placeholder="Any earlier club, project or event experience"></textarea>
+            </div>
+            <div class="field full">
+              <label for="reason">Reason for Joining *</label>
+              <textarea id="reason" name="reason" placeholder="Tell us why you want to join this club" required></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="terms">
+          <input type="checkbox" id="terms" name="terms" required>
+          <label for="terms">I confirm that the details above are correct and I agree to follow the club rules and the university code of conduct. *</label>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn btn-main">Submit Registration</button>
+          <button type="reset" class="btn btn-out">Reset Form</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Rules -->
+  <section id="rules">
+    <div class="title">
+      <h2>Club Rules</h2>
+      <p>Please read these rules before registering.</p>
+    </div>
+    <ol class="rules">
+      <li>Only currently enrolled students of Northf
